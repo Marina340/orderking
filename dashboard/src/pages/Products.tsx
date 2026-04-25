@@ -3,22 +3,27 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Plus, Edit, Trash2, ToggleLeft, ToggleRight, Package } from 'lucide-react';
 import toast from 'react-hot-toast';
 import api, { handleApiError } from '../services/api';
-import type { Product } from '../types';
+import type { Product, Category } from '../types';
 import ProductModal from '../components/ProductModal';
-
-const CATEGORIES = [
-  { id: '', name: 'All Categories' },
-  { id: 'dc139218-c079-43e3-ae94-6443519c4307', name: 'Electronics' },
-  { id: '58e36735-cb70-49ba-8930-84d837b1c78b', name: 'Clothing' },
-  { id: 'c2bd08e4-8f47-43a7-b7b4-89bb6de5f42b', name: 'Food & Beverages' },
-  { id: '809b2d41-ffab-4fa4-841f-8ea21e202e7d', name: 'Home & Garden' },
-];
 
 export default function Products() {
   const queryClient = useQueryClient();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [selectedCategory, setSelectedCategory] = useState('');
+
+  const { data: categories, isLoading: categoriesLoading } = useQuery({
+    queryKey: ['categories'],
+    queryFn: async () => {
+      const res = await api.get('/categories');
+      return res.data.data as Category[];
+    },
+  });
+
+  const categoryOptions = [
+    { id: '', name: 'All Categories' },
+    ...(categories || []),
+  ];
 
   const { data: products, isLoading } = useQuery({
     queryKey: ['products', selectedCategory],
@@ -111,7 +116,7 @@ export default function Products() {
 
       {/* Category Filters */}
       <div className="mb-6 flex flex-wrap gap-2">
-        {CATEGORIES.map((category) => (
+        {categoryOptions.map((category) => (
           <button
             key={category.id}
             onClick={() => setSelectedCategory(category.id)}

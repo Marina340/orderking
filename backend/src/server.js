@@ -12,6 +12,7 @@ dotenv.config();
 const authRoutes = require('./routes/authRoutes');
 const productRoutes = require('./routes/productRoutes');
 const orderRoutes = require('./routes/orderRoutes');
+const categoryRoutes = require('./routes/categoryRoutes');
 
 // Initialize express app
 const app = express();
@@ -39,6 +40,7 @@ app.get('/health', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
+app.use('/api/categories', categoryRoutes);
 
 // 404 handler
 app.use((req, res) => {
@@ -69,6 +71,7 @@ const server = app.listen(PORT, () => {
 ║   - Auth: http://localhost:${PORT}/api/auth            ║
 ║   - Products: http://localhost:${PORT}/api/products    ║
 ║   - Orders: http://localhost:${PORT}/api/orders        ║
+║   - Categories: http://localhost:${PORT}/api/categories║
 ║                                                       ║
 ╚═══════════════════════════════════════════════════════╝
   `);

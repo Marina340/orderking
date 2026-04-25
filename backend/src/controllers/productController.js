@@ -32,7 +32,7 @@ const getProducts = asyncHandler(async (req, res) => {
   // Add category filter
   if (category) {
     paramCount++;
-    queryText += ` AND c.slug = $${paramCount}`;
+    queryText += ` AND c.id = $${paramCount}`;
     queryParams.push(category);
   }
 
@@ -71,7 +71,7 @@ const getProducts = asyncHandler(async (req, res) => {
 
   if (category) {
     countParamIndex++;
-    countQuery += ` AND c.slug = $${countParamIndex}`;
+    countQuery += ` AND c.id = $${countParamIndex}`;
     countParams.push(category);
   }
 

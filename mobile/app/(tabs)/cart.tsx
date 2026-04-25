@@ -15,51 +15,25 @@ import { useCart } from '@/context/CartContext';
 import { ordersService } from '@/services/orders';
 import Button from '@/components/Button';
 import EmptyState from '@/components/EmptyState';
+import InputModal from '@/components/InputModal';
 import { COLORS, SPACING, FONT_SIZES, FONT_WEIGHTS, BORDER_RADIUS } from '@/constants/theme';
 import { handleApiError } from '@/services/api';
 
 export default function CartScreen() {
   const { items, updateQuantity, removeFromCart, totalAmount, clearCart } = useCart();
   const [loading, setLoading] = useState(false);
+  const [addressModalVisible, setAddressModalVisible] = useState(false);
+  const [phoneModalVisible, setPhoneModalVisible] = useState(false);
+  const [tempAddress, setTempAddress] = useState('');
 
-  const handleCheckout = async () => {
+  const handleCheckout = () => {
     if (items.length === 0) return;
-
-    Alert.prompt(
-      'Shipping Address',
-      'Enter your shipping address',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'Continue',
-          onPress: (address) => {
-            if (address) {
-              handlePhoneInput(address);
-            }
-          },
-        },
-      ],
-      'plain-text'
-    );
+    setAddressModalVisible(true);
   };
 
   const handlePhoneInput = (address: string) => {
-    Alert.prompt(
-      'Phone Number',
-      'Enter your phone number',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'Place Order',
-          onPress: (phone) => {
-            if (phone) {
-              placeOrder(address, phone);
-            }
-          },
-        },
-      ],
-      'plain-text'
-    );
+    setTempAddress(address);
+    setPhoneModalVisible(true);
   };
 
   const placeOrder = async (address: string, phone: string) => {
@@ -168,6 +142,26 @@ export default function CartScreen() {
           style={styles.checkoutButton}
         />
       </View>
+      
+      <InputModal
+        visible={addressModalVisible}
+        title="Shipping Address"
+        message="Enter your shipping address"
+        placeholder="Enter your full shipping address"
+        onSubmit={handlePhoneInput}
+        onCancel={() => setAddressModalVisible(false)}
+        submitText="Continue"
+      />
+      
+      <InputModal
+        visible={phoneModalVisible}
+        title="Phone Number"
+        message="Enter your phone number"
+        placeholder="Enter your phone number"
+        onSubmit={(phone) => placeOrder(tempAddress, phone)}
+        onCancel={() => setPhoneModalVisible(false)}
+        submitText="Place Order"
+      />
     </SafeAreaView>
   );
 }

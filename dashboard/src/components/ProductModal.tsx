@@ -1,17 +1,9 @@
 import { useState, useEffect } from 'react';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query';
 import { X } from 'lucide-react';
 import toast from 'react-hot-toast';
 import api, { handleApiError } from '../services/api';
-import type { Product } from '../types';
-
-// Hardcoded categories from your API
-const CATEGORIES = [
-  { id: 'dc139218-c079-43e3-ae94-6443519c4307', name: 'Electronics' },
-  { id: '58e36735-cb70-49ba-8930-84d837b1c78b', name: 'Clothing' },
-  { id: 'c2bd08e4-8f47-43a7-b7b4-89bb6de5f42b', name: 'Food & Beverages' },
-  { id: '809b2d41-ffab-4fa4-841f-8ea21e202e7d', name: 'Home & Garden' },
-];
+import type { Product, Category } from '../types';
 
 interface ProductModalProps {
   product: Product | null;
@@ -20,6 +12,14 @@ interface ProductModalProps {
 
 export default function ProductModal({ product, onClose }: ProductModalProps) {
   const queryClient = useQueryClient();
+  
+  const { data: categories } = useQuery({
+    queryKey: ['categories'],
+    queryFn: async () => {
+      const res = await api.get('/categories');
+      return res.data.data as Category[];
+    },
+  });
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -152,7 +152,7 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             >
               <option value="">Select a category</option>
-              {CATEGORIES.map((category) => (
+              {categories?.map((category) => (
                 <option key={category.id} value={category.id}>
                   {category.name}
                 </option>
@@ -160,7 +160,7 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
             </select>
             {product && formData.category_id && (
               <p className="text-xs text-gray-500 mt-1">
-                Current: {CATEGORIES.find(c => c.id === formData.category_id)?.name || 'Unknown'}
+                Current: {categories?.find(c => c.id === formData.category_id)?.name || 'Unknown'}
               </p>
             )}
           </div>
