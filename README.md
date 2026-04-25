@@ -2,11 +2,7 @@
 
 A full-stack e-commerce platform built with modern technologies, featuring a mobile shopping app, admin dashboard, and RESTful API backend.
 
-## 📹 Video Demonstration
-
-**[Watch the 5-minute demo video here](#)** *(Upload your video to Google Drive/Loom/WeTransfer and add the link)*
-
-### Video Coverage:
+### Coverage:
 1. ✅ Mobile App Demo: Register → Browse Products → Add to Cart → Place Order
 2. ✅ Admin Dashboard: View Order → Update Status to "Processing"
 3. ✅ Code Structure & Technical Decisions
@@ -355,66 +351,6 @@ VITE_API_URL=http://localhost:5000/api
 
 ---
 
-## 🎬 Video Recording Guide
-
-### What to Show (4-5 minutes)
-
-#### Part 1: Mobile App Demo (2 minutes)
-1. **Open mobile app** in browser (`http://localhost:8081`)
-2. **Register** a new account
-   - Name: "John Doe"
-   - Email: "john@example.com"
-   - Password: "password123"
-3. **Browse products**
-   - Show category filters working
-   - Show search functionality
-4. **Add to cart**
-   - Add 2-3 products
-   - Show cart with quantities
-5. **Place order**
-   - Enter shipping address
-   - Enter phone number
-   - Confirm order placement
-6. **View order history**
-   - Show the order just placed with "pending" status
-
-#### Part 2: Admin Dashboard Demo (1.5 minutes)
-1. **Login to dashboard** (`http://localhost:5173`)
-   - Email: admin@orderking.com
-   - Password: (your admin password)
-2. **Navigate to Orders page**
-   - Find the order just placed from mobile app
-   - Show order details (customer info, items, total)
-3. **Update order status**
-   - Change status from "Pending" to "Processing"
-   - Show success notification
-4. **Show Products page**
-   - Demonstrate category filtering
-   - Show add/edit product functionality
-
-#### Part 3: Code Walkthrough (1 minute)
-1. **Show project structure**
-   - Open VS Code
-   - Show backend, dashboard, mobile folders
-2. **Explain one technical decision**
-   - Example: "I'm proud of the cross-platform storage solution that allows the mobile app to work on web, iOS, and Android using a single codebase"
-   - Show the code snippet
-3. **Highlight key features**
-   - TypeScript for type safety
-   - React Query for data management
-   - Responsive design
-
-### Recording Tips
-- ✅ Use **OBS Studio** or **Loom** for recording
-- ✅ Record in **1080p** (1920x1080)
-- ✅ Enable **microphone** for narration
-- ✅ Speak clearly in **English**
-- ✅ Keep it **4-5 minutes** max
-- ✅ Upload to **Google Drive/Loom/WeTransfer**
-- ✅ Add link to this README
-
----
-
 ## 🧪 Testing the Application
 
 ### Test Credentials
@@ -439,40 +375,6 @@ WHERE email = 'your@email.com';
 5. ✅ View the order
 6. ✅ Update order status
 7. ✅ Check mobile app - order status updated
-
----
-
-## 🐛 Troubleshooting
-
-### Backend Issues
-**Port already in use:**
-```bash
-# Change PORT in .env file
-PORT=5001
-```
-
-**Database connection error:**
-- Verify Supabase credentials in `.env`
-- Check Supabase project is active
-
-### Dashboard Issues
-**White screen:**
-- Check browser console (F12)
-- Ensure backend is running
-- Verify `.env` has correct API URL
-
-**Can't login:**
-- Ensure user has `role='admin'` in database
-- Check backend API is accessible
-
-### Mobile App Issues
-**API not working on web:**
-- Already fixed! Uses localStorage on web
-- Check console for API URL log
-
-**Images not loading:**
-- Already fixed! Shows placeholder icons
-- Verify image URLs are accessible
 
 ---
 
@@ -503,13 +405,6 @@ eas build --platform android
 # Publish update
 eas update
 ```
-
----
-
-## 📄 License
-
-ISC License - OrderKing Egypt
-
 ---
 
 ## 👨‍💻 Developer
@@ -540,7 +435,6 @@ Built with ❤️ for OrderKing
 ## 📞 Support
 
 For issues or questions:
-1. Check the troubleshooting section above
 2. Review the API documentation in `backend/API_ENDPOINTS.md`
 3. Check individual README files in each folder
 
